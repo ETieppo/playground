@@ -1,0 +1,102 @@
+<main
+  class="landing-page flex flex-col text-white min-h-screen bg-linear-to-b from-gray-900 to-black"
+>
+  <section
+    class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden"
+    ref="{heroSectionRef}"
+  >
+    <div class="hero-background absolute inset-0">
+      <div
+        class="gradient-orb orb-1 float-element absolute top-1/4 left-1/4 w-64 h-64 bg-linear-to-r from-purple-600 to-blue-500 rounded-full opacity-20 blur-3xl"
+      ></div>
+      <div
+        class="gradient-orb orb-2 float-element absolute top-3/4 right-1/4 w-96 h-96 bg-linear-to-r from-pink-600 to-purple-500 rounded-full opacity-15 blur-3xl"
+      ></div>
+      <div
+        class="gradient-orb orb-3 float-element absolute bottom-1/4 left-1/2 w-80 h-80 bg-linear-to-r from-blue-600 to-cyan-500 rounded-full opacity-20 blur-3xl"
+      ></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 slide-down">
+      <div class="hero-content max-w-4xl mx-auto text-center">
+        <div class="flex flex-col items-center font-bold text-2xl mb-8">
+          <h1 class="mb-4">Ultima partida</h1>
+          <div
+            class="p-4 px-8 rounded-full mt-2 shadow-xl shadow-black bg-white/10 backdrop-blur-lg border border-white/20 flex items-center gap-4"
+          >
+            <span class="text-3xl">
+              <!--{loading ? defaultEmpty : p1.gameWins}-->
+            </span>
+            <!--<X class="w-6 h-6" />-->
+            <span class="text-3xl">
+              <!--{loading ? defaultEmpty : p2.gameWins}-->
+            </span>
+          </div>
+        </div>
+
+        <h1 class="hero-title text-5xl md:text-7xl font-bold mb-8 slide-right">
+          Bora ver quem
+          <!--<br />-->
+          <span
+            class="gradient-text bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
+          >
+            leva essa?
+          </span>
+        </h1>
+
+        <div class="hero-actions mb-12 slide-left">
+          <button
+            class="btn-primary font-bold text-xl px-8 py-4 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition-all transform hover:scale-105 flex items-center gap-3 mx-auto shadow-2xl"
+          >
+            <!-- <Swords class="size-8" /> -->
+            <img src="/icons/swords.svg" alt="" />
+            <span>Batalhar</span>
+          </button>
+        </div>
+
+        <div
+          class="hero-stats-mini flex items-center justify-center gap-8 slide-up rounded-2xl p-6"
+        >
+          <div class="stat-mini text-center">
+            <div class="stat-mini-value text-2xl font-bold mb-1">
+              @let p1 = players()[0];
+              {{ p1?.username || DEFAULT_EMPTY }}
+            </div>
+            <div class="stat-mini-label text-sm text-gray-300">P1</div>
+          </div>
+
+          <div
+            class="rounded-lg bg-neutral-950 w-80 h-full min-h-20 flex flex-row items-center justify-evenly gap-2"
+          >
+            <div class="flex flex-col">
+              <span class="stat-mini-value">{{ players().length || DEFAULT_EMPTY }}</span>
+              jogadores
+            </div>
+            <img src="/icons/touch.svg" class="size-5" alt="" />
+            <div class="flex flex-col">
+              <span class="stat-mini-value">{{ playedGames() || DEFAULT_EMPTY }}</span>
+              Partidas
+            </div>
+          </div>
+
+          <div class="stat-mini text-center bg-white">
+            <div class="stat-mini-value text-2xl font-bold mb-1">
+              @let p2 = players()[1];
+              {{ p2?.username || DEFAULT_EMPTY }}
+            </div>
+            <div class="stat-mini-label text-sm text-gray-300">P2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  @if (showAllPlayers()) {
+    <div
+      class="flex flex-col gap-2 p-6 rounded-xl self-center justify-self-center fixed z-40 backdrop-blur-2xl"
+    >
+      @for (u of players(); track u) {
+        {{ u.username }}
+      }
+    </div>
+  }
+</main>

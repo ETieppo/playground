@@ -1,0 +1,11 @@
+@let actual = toast.actualMessage();
+@let color = actual?.typeColor;
+@let msg = actual?.message;
+
+<div
+  class="{{
+    color || 'border-neutral-900 -translate-y-30'
+  }} h-20 fixed z-40 min-w-80 rounded-xl right-6 top-6 p-4 border bg-neutral-900 text-white transition-all duration-200 flex items-center justify-center text-xl"
+>
+  {{ msg || '' }}
+</div>
