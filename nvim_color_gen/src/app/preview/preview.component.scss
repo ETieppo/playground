@@ -1,0 +1,181 @@
+// All color values come from CSS custom properties set by the component
+// via [ngStyle] → cssVars getter. This means the same stylesheet works for
+// every randomized palette — no CSS rebuild required.
+
+:host {
+  display: block;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', ui-monospace, monospace;
+}
+
+// ── Editor shell ──────────────────────────────────────────────────────────────
+.editor {
+  background: var(--tok-bg);
+  border: 1px solid var(--tok-bdr);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.72;
+
+  // ── Title bar ───────────────────────────────────────────────────────────
+  &__titlebar {
+    background: var(--tok-bg2);
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--tok-bg3);
+  }
+
+  &__dots {
+    display: flex;
+    gap: 7px;
+  }
+
+  &__dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+
+    &--red    { background: var(--tok-kw); }
+    &--yellow { background: var(--tok-nm); }
+    &--green  { background: var(--tok-fc); }
+  }
+
+  &__filename {
+    flex: 1;
+    text-align: center;
+    color: var(--tok-mut);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+
+  &__controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  &__select,
+  &__btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--tok-ind);
+    background: var(--tok-bg3);
+    color: var(--tok-txt);
+    cursor: pointer;
+    transition: background 0.1s;
+
+    &:hover { background: var(--tok-bdr); }
+  }
+
+  &__btn {
+    &--copy {
+      background: transparent;
+      border-color: var(--tok-fc);
+      color: var(--tok-fc);
+    }
+
+    &--copied {
+      border-color: var(--tok-kt);
+      color: var(--tok-kt);
+    }
+  }
+
+  // ── Palette color strip ──────────────────────────────────────────────────
+  &__palbar {
+    display: flex;
+    height: 3px;
+
+    span { flex: 1; }
+  }
+
+  // ── Code area ────────────────────────────────────────────────────────────
+  &__code-area {
+    display: flex;
+    max-height: 500px;
+    overflow: auto;
+    padding: 14px 0;
+  }
+
+  &__gutter {
+    padding: 0 12px 0 14px;
+    text-align: right;
+    color: var(--tok-ln);
+    user-select: none;
+    white-space: pre;
+    flex-shrink: 0;
+    border-right: 1px solid var(--tok-bg3);
+    font-size: 11px;
+    line-height: 1.72;
+  }
+
+  &__source {
+    padding: 0 18px;
+    white-space: pre;
+    color: var(--tok-txt);
+    flex: 1;
+    min-width: 0;           // prevent flex blowout on long lines
+    tab-size: 4;
+    line-height: 1.72;
+  }
+
+  // ── Legend chips ─────────────────────────────────────────────────────────
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--tok-bg3);
+  }
+
+  &__chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--tok-bg2);
+    border: 1px solid var(--tok-bg3);
+    border-radius: 3px;
+    padding: 3px 7px;
+  }
+
+  &__chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  &__chip-label {
+    color: var(--tok-mut);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+}
+
+// ── Syntax token classes ──────────────────────────────────────────────────────
+// The tokenizer injects raw HTML via [innerHTML], which bypasses Angular's
+// Emulated view encapsulation. ::ng-deep pierces the encapsulation boundary
+// so these styles reach the injected spans.
+
+/* stylelint-disable selector-pseudo-element-no-unknown */
+:host ::ng-deep {
+  .kw { color: var(--tok-kw); }                        // keyword
+  .ki { color: var(--tok-ki); }                        // import (use)
+  .kt { color: var(--tok-kt); }                        // struct / enum / type
+  .kr { color: var(--tok-kr); font-style: italic; }    // return
+  .fc { color: var(--tok-fc); }                        // fn / method call
+  .ty { color: var(--tok-ty); }                        // TypeName
+  .bt { color: var(--tok-bt); }                        // builtin type (str, i32…)
+  .sx { color: var(--tok-sx); }                        // string / raw string
+  .nm { color: var(--tok-nm); }                        // number
+  .cm { color: var(--tok-cm); font-style: italic; }    // comment
+  .op { color: var(--tok-op); }                        // operator (-> ? & …)
+  .mc { color: var(--tok-mc); }                        // macro!
+  .at { color: var(--tok-at); }                        // #[attribute]
+  .md { color: var(--tok-md); }                        // module path
+  .pr { color: var(--tok-pr); }                        // .property access
+  .br { color: var(--tok-br); }                        // bracket ( ) { } [ ]
+  .tx { color: var(--tok-tx); }                        // variable / identifier
+}

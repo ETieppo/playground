@@ -1,0 +1,52 @@
+<div class="editor" [ngStyle]="cssVars">
+
+  <!-- ── Title bar ─────────────────────────────────────────────────────────── -->
+  <div class="editor__titlebar">
+    <div class="editor__dots">
+      <span class="editor__dot editor__dot--red"></span>
+      <span class="editor__dot editor__dot--yellow"></span>
+      <span class="editor__dot editor__dot--green"></span>
+    </div>
+
+    <span class="editor__filename">main.rs &nbsp;·&nbsp; blue_cherry</span>
+
+    <div class="editor__controls">
+      <select class="editor__select" [(ngModel)]="selectedTheme">
+        <option *ngFor="let t of themes" [value]="t">{{ t }}</option>
+      </select>
+
+      <button class="editor__btn" (click)="randomize()">↺ randomizar</button>
+
+      <button
+        class="editor__btn editor__btn--copy"
+        [class.editor__btn--copied]="copied"
+        (click)="copyLua()"
+      >
+        {{ copied ? '✓ copiado' : 'copiar lua' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Palette color strip ──────────────────────────────────────────────── -->
+  <div class="editor__palbar">
+    <span
+      *ngFor="let color of paletteBarColors"
+      [style.background]="color"
+    ></span>
+  </div>
+
+  <!-- ── Code area ─────────────────────────────────────────────────────────── -->
+  <div class="editor__code-area">
+    <div class="editor__gutter">{{ lineNumbersText }}</div>
+    <div class="editor__source" [innerHTML]="highlightedHtml"></div>
+  </div>
+
+  <!-- ── Palette legend ────────────────────────────────────────────────────── -->
+  <div class="editor__legend">
+    <div *ngFor="let entry of legend" class="editor__chip">
+      <span class="editor__chip-dot" [style.background]="entry.color"></span>
+      <span class="editor__chip-label">{{ entry.label }}</span>
+    </div>
+  </div>
+
+</div>
