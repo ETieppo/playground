@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = [".", "game_lib"]
+
+[package]
+name = "boids"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ggez = "0.9.3"
+rand = "0.10.1"
+game_lib = { path = "game_lib" }
+hot-lib-reloader = { version = "0.8.2", optional = true }
+
+[features]
+hot-reload = ["dep:hot-lib-reloader"]
+default = ["hot-reload"]

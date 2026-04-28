@@ -1,2 +1,6 @@
 /node_modules
 /bin
+/target/
+.DS_Store
+/build/
+
